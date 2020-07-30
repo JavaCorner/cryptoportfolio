@@ -2,11 +2,11 @@ package com.ab.cryptoportfolio.repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import com.ab.cryptoportfolio.entity.User;
+import com.ab.cryptoportfolio.entity.CryptoUser;
 
-public interface UserRepository extends MongoRepository<User, String> {
+public interface UserRepository extends MongoRepository<CryptoUser, String> {
 
-	User findByUsername(String username);
-	User findByEmail(String email);
+	CryptoUser findByUsername(String username);
+	CryptoUser findByEmail(String email);
 	
 }

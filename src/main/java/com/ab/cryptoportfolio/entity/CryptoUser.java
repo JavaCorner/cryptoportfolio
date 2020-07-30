@@ -14,7 +14,7 @@ import lombok.ToString;
 @RequiredArgsConstructor
 @Getter
 @ToString
-public class User {
+public class CryptoUser {
 
 	@Id
 	private String id;

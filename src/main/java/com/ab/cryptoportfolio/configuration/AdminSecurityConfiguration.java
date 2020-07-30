@@ -17,7 +17,7 @@ import org.springframework.security.web.authentication.www.DigestAuthenticationF
  * @author Arpit Bhardwaj
  */
 
-@Configuration
+/*@Configuration
 @Order(1)
 public class AdminSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
@@ -68,4 +68,6 @@ public class AdminSecurityConfiguration extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder(){
         return NoOpPasswordEncoder.getInstance();
     }
-}
+}*/
+
+public class AdminSecurityConfiguration{}
