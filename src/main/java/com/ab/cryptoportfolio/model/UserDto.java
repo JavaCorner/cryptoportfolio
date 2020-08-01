@@ -1,6 +1,7 @@
 package com.ab.cryptoportfolio.model;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
 import com.ab.cryptoportfolio.validation.PasswordConfirmed;
@@ -36,5 +37,4 @@ public class UserDto {
 	private String password;
 	@NotEmpty(message="Please confirm your password")
 	private String confirmPassword;
-	
 }

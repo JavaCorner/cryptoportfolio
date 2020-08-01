@@ -2,13 +2,9 @@ package com.ab.cryptoportfolio.entity;
 
 import javax.validation.constraints.Email;
 
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
 
 @Document
 @RequiredArgsConstructor
@@ -29,5 +25,6 @@ public class CryptoUser {
 	private String email;
 	@NonNull
 	private String password;
-	
+	@Setter
+	private boolean verified;
 }

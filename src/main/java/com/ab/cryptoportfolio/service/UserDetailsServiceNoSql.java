@@ -23,7 +23,11 @@ public class UserDetailsServiceNoSql implements UserDetailsService {
 		if (user == null) {
 			throw new UsernameNotFoundException(username);
 		}
-		return User.withUsername(user.getUsername()).password(user.getPassword()).roles("USER").build();		
+		return User.withUsername(user.getUsername())
+				.password(user.getPassword())
+				.roles("USER")
+				.disabled(!user.isVerified())
+				.build();
 	}
 
 }
