@@ -37,4 +37,8 @@ public class UserDto {
 	private String password;
 	@NotEmpty(message="Please confirm your password")
 	private String confirmPassword;
+	@Min(4)
+	private int securityPin;
+	@Min(4)
+	private int confirmSecurityPin;
 }

@@ -31,7 +31,8 @@ public class UserRegistrationServiceNoSql implements UserRegistrationService{
 											  user.getFirstname(), 
 											  user.getLastname(),
 											  user.getEmail(), 
-											  encoder.encode(user.getPassword())
+											  encoder.encode(user.getPassword()),
+											  encoder.encode(String.valueOf(user.getSecurityPin()))
 		);
 		userRepository.save(cryptUser);
 		portfolioRepository.save(new Portfolio(user.getUsername(), new ArrayList<>()));

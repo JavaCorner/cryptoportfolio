@@ -27,4 +27,6 @@ public class CryptoUser {
 	private String password;
 	@Setter
 	private boolean verified;
+	@NonNull
+	private String securityPin;
 }
