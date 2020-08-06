@@ -15,35 +15,36 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.sql.DataSource;
-
 /**
  * @author Arpit Bhardwaj
  */
 
+/*
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfiguration2 extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AdditionalAuthenticationProvider additionalProvider;
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        /*http
+        */
+/*http
                 .authorizeRequests()
                 .antMatchers("/register", "/login").permitAll()
                 .antMatchers("/support/admin/**").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()
-                .formLogin();*/
+                .formLogin();*//*
+
 
         http
                 .authorizeRequests().antMatchers("/register", "/login", "/login-error", "/login-verified", "/verify/email", "/qrcode").permitAll()
                 .anyRequest().authenticated().and()
                 .formLogin().loginPage("/login").failureUrl("/login-error")
                 .authenticationDetailsSource(new AdditionalAuthenticationDetailsSource());
+
     }
 
     @Override
@@ -63,5 +64,6 @@ public class SecurityConfiguration2 extends WebSecurityConfigurerAdapter {
         return encoder;
     }
 }
+*/
 
-//public class SecurityConfiguration2{}
+public class SecurityConfiguration2{}

@@ -1,5 +1,6 @@
 package com.ab.cryptoportfolio.service;
 
+import com.ab.cryptoportfolio.model.Authorities;
 import com.ab.cryptoportfolio.userdetails.MFAUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -39,7 +40,12 @@ public class UserDetailsServiceNoSql implements UserDetailsService {
 				.disabled(!user.isVerified())
 				.build();*/
 		List<String> authorities = new ArrayList<>();
-		authorities.add("USER");
+		//authorities.add("USER");
+		if(user.isTotpEnabled()) {
+			authorities.add(Authorities.TOTP_AUTH_AUTHORITY);
+		} else {
+			authorities.add(Authorities.ROLE_USER);
+		}
 		MFAUser springUser = new MFAUser(user.getUsername(),
 				user.getPassword(),
 				user.isVerified(),

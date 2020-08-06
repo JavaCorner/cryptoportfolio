@@ -29,4 +29,7 @@ public class CryptoUser {
 	private boolean verified;
 	@NonNull
 	private String securityPin;
+	@NonNull
+	@Setter
+	private boolean totpEnabled;
 }

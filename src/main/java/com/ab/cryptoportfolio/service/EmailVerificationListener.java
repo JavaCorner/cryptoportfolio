@@ -16,9 +16,13 @@ public class EmailVerificationListener implements ApplicationListener<UserRegist
 
 	private final JavaMailSender mailSender;
 	private final VerificationService verificationService;
-
+	@Value(value = "${disableEmailVerification}")
+	private boolean disableEmailVerification = false;
 	@Override
 	public void onApplicationEvent(UserRegistrationEvent event) {
+		if(disableEmailVerification) {
+			return;
+		}
 		String username = event.getUser().getUsername();
 		String verificationId = verificationService.createVerification(username);		
 		String email = event.getUser().getEmail();

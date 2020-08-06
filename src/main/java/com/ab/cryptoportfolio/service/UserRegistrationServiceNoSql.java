@@ -25,6 +25,12 @@ public class UserRegistrationServiceNoSql implements UserRegistrationService{
 	private final PasswordEncoder encoder;
 
 	private final ApplicationEventPublisher eventPublisher;
+
+	@Value(value = "${enableTOTPVerification}")
+	private boolean TOTP_ENABLED = false;
+
+	@Value(value = "${disableEmailVerification}")
+	private boolean disableEmailVerification;
 	@Override
 	public void createUser(UserDto user) {
 		CryptoUser cryptUser = new CryptoUser(user.getUsername(), 
@@ -32,8 +38,10 @@ public class UserRegistrationServiceNoSql implements UserRegistrationService{
 											  user.getLastname(),
 											  user.getEmail(), 
 											  encoder.encode(user.getPassword()),
-											  encoder.encode(String.valueOf(user.getSecurityPin()))
+											  encoder.encode(String.valueOf(user.getSecurityPin())),
+											  TOTP_ENABLED
 		);
+		cryptUser.setVerified(disableEmailVerification);
 		userRepository.save(cryptUser);
 		portfolioRepository.save(new Portfolio(user.getUsername(), new ArrayList<>()));
 		eventPublisher.publishEvent(new UserRegistrationEvent(cryptUser));
