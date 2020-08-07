@@ -26,7 +26,7 @@ public class UserRegistrationServiceNoSql implements UserRegistrationService{
 
 	private final ApplicationEventPublisher eventPublisher;
 
-	@Value(value = "${enableTOTPVerification}")
+	//@Value(value = "${enableTOTPVerification}")
 	private boolean TOTP_ENABLED = false;
 
 	@Value(value = "${disableEmailVerification}")

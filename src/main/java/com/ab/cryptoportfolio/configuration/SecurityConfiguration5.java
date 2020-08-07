@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
@@ -21,6 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
 import javax.sql.DataSource;
@@ -30,9 +32,9 @@ import java.util.Properties;
  * @author Arpit Bhardwaj
  */
 
-/*@Configuration
+@Configuration
 @RequiredArgsConstructor
-public class SecurityConfiguration4 extends WebSecurityConfigurerAdapter {
+public class SecurityConfiguration5 extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AdditionalAuthenticationProvider additionalProvider;
@@ -40,6 +42,10 @@ public class SecurityConfiguration4 extends WebSecurityConfigurerAdapter {
     private TotpAuthenticationFilter totpAuthFilter;
     @Autowired
     private AccessDeniedHandlerImpl accessDeniedHandler;
+    @Autowired
+    private UserDetailsService userDetailsService;
+    @Autowired
+    private PersistentTokenRepository persistentTokenRepository;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -52,7 +58,11 @@ public class SecurityConfiguration4 extends WebSecurityConfigurerAdapter {
                 .anyRequest().hasRole("USER").and()
                 .formLogin().loginPage("/login").successHandler(new AuthenticationSuccessHandlerImpl()).failureUrl("/login-error")
                 .authenticationDetailsSource(new AdditionalAuthenticationDetailsSource())
-                .and().exceptionHandling().accessDeniedHandler(accessDeniedHandler);
+                .and().exceptionHandling().accessDeniedHandler(accessDeniedHandler)
+                .and().rememberMe().key("remember-me-key").tokenRepository(persistentTokenRepository)
+                .authenticationSuccessHandler(new AuthenticationSuccessHandlerImpl())
+                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/login")
+                .deleteCookies("remember-me");;
     }
 
     @Override
@@ -80,12 +90,17 @@ public class SecurityConfiguration4 extends WebSecurityConfigurerAdapter {
         return resolver;
     }
 
+    @Override
+    protected UserDetailsService userDetailsService() {
+        return userDetailsService;
+    }
+
     @Bean
     public PasswordEncoder getPasswordEncoder() {
         DelegatingPasswordEncoder encoder = (DelegatingPasswordEncoder) PasswordEncoderFactories.createDelegatingPasswordEncoder();
         encoder.setDefaultPasswordEncoderForMatches(new BCryptPasswordEncoder());
         return encoder;
     }
-}*/
+}
 
-public class SecurityConfiguration4{}
+//public class SecurityConfiguration5{}
