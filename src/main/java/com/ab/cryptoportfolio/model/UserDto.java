@@ -4,10 +4,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
-import com.ab.cryptoportfolio.validation.PasswordConfirmed;
-import com.ab.cryptoportfolio.validation.PasswordPolicy;
-import com.ab.cryptoportfolio.validation.UniqueEmail;
-import com.ab.cryptoportfolio.validation.UniqueUsername;
+import com.ab.cryptoportfolio.validation.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,6 +16,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @PasswordConfirmed
+@Recaptcha
 public class UserDto {
 	
 	@NotEmpty(message="Please enter your firstname")

@@ -32,7 +32,7 @@ import java.util.Properties;
  * @author Arpit Bhardwaj
  */
 
-@Configuration
+/*@Configuration
 @RequiredArgsConstructor
 public class SecurityConfiguration5 extends WebSecurityConfigurerAdapter {
 
@@ -101,6 +101,6 @@ public class SecurityConfiguration5 extends WebSecurityConfigurerAdapter {
         encoder.setDefaultPasswordEncoderForMatches(new BCryptPasswordEncoder());
         return encoder;
     }
-}
+}*/
 
-//public class SecurityConfiguration5{}
+public class SecurityConfiguration5{}
