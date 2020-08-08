@@ -48,17 +48,29 @@ public class SecurityConfiguration6 extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // @formatter:off
         http
                 .addFilterBefore(totpAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling().accessDeniedHandler(accessDeniedHandler)
+                .and()
+                .formLogin()
+                    .loginPage("/login")
+                    .successHandler(new AuthenticationSuccessHandlerImpl())
+                    .failureUrl("/login-error")
+                    .authenticationDetailsSource(new AdditionalAuthenticationDetailsSource())
+                    .and()
+                .oauth2Login()
+                    .loginPage("/login")
+                    .successHandler(oauth2authSuccessHandler)
+                    .and()
                 .authorizeRequests()
-                .antMatchers("/register", "/login", "/login-error", "/login-verified", "/verify/email", "/qrcode").permitAll()
-                .antMatchers("/totp-login", "/totp-login-error").hasAuthority(Authorities.TOTP_AUTH_AUTHORITY)
-                .antMatchers("/support/admin/**").hasRole("ADMIN")
-                .anyRequest().hasRole("USER").and()
-                .formLogin().loginPage("/login").successHandler(new AuthenticationSuccessHandlerImpl()).failureUrl("/login-error")
-                .authenticationDetailsSource(new AdditionalAuthenticationDetailsSource())
-                .and().exceptionHandling().accessDeniedHandler(accessDeniedHandler)
-                .and().oauth2Login().loginPage("/login").successHandler(oauth2authSuccessHandler);
+                    .antMatchers("/register", "/login", "/login-error", "/login-verified", "/verify/email", "/qrcode").permitAll()
+                    .antMatchers("/totp-login", "/totp-login-error").hasAuthority(Authorities.TOTP_AUTH_AUTHORITY)
+                    .antMatchers("/support/admin/**").hasRole("ADMIN")
+                    .anyRequest()
+                    .hasRole("USER");
+
+        // @formatter:on
     }
 
     @Override
@@ -76,7 +88,7 @@ public class SecurityConfiguration6 extends WebSecurityConfigurerAdapter {
         return new DefaultRedirectStrategy();
     }
 
-    @Bean(name="simpleMappingExceptionResolver")
+    @Bean(name = "simpleMappingExceptionResolver")
     public SimpleMappingExceptionResolver createExceptionResolver() {
         SimpleMappingExceptionResolver resolver = new SimpleMappingExceptionResolver();
         Properties properties = new Properties();
