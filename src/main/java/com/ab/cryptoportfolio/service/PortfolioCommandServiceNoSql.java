@@ -1,6 +1,7 @@
 package com.ab.cryptoportfolio.service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -53,4 +54,13 @@ public class PortfolioCommandServiceNoSql implements PortfolioCommandService {
 		return transaction;
 	}
 
+	@Override
+	public void createNewPortfolio(String username) {
+		portfolioRepostiory.save(new Portfolio(username, new ArrayList<>()));
+	}
+
+	@Override
+	public boolean userHasAportfolio(String username) {
+		return this.portfolioRepostiory.existsByUsername(username);
+	}
 }

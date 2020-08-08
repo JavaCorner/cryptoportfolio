@@ -8,6 +8,7 @@ import com.ab.cryptoportfolio.userdetails.AdditionalAuthenticationProvider;
 import com.ab.cryptoportfolio.userdetails.AuthenticationSuccessHandlerImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -20,6 +21,7 @@ import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
@@ -30,9 +32,9 @@ import java.util.Properties;
  * @author Arpit Bhardwaj
  */
 
-/*@Configuration
+@Configuration
 @RequiredArgsConstructor
-public class SecurityConfiguration4 extends WebSecurityConfigurerAdapter {
+public class SecurityConfiguration6 extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AdditionalAuthenticationProvider additionalProvider;
@@ -40,6 +42,9 @@ public class SecurityConfiguration4 extends WebSecurityConfigurerAdapter {
     private TotpAuthenticationFilter totpAuthFilter;
     @Autowired
     private AccessDeniedHandlerImpl accessDeniedHandler;
+    @Autowired
+    @Qualifier("oauth2authSuccessHandler")
+    private AuthenticationSuccessHandler oauth2authSuccessHandler;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -52,7 +57,8 @@ public class SecurityConfiguration4 extends WebSecurityConfigurerAdapter {
                 .anyRequest().hasRole("USER").and()
                 .formLogin().loginPage("/login").successHandler(new AuthenticationSuccessHandlerImpl()).failureUrl("/login-error")
                 .authenticationDetailsSource(new AdditionalAuthenticationDetailsSource())
-                .and().exceptionHandling().accessDeniedHandler(accessDeniedHandler);
+                .and().exceptionHandling().accessDeniedHandler(accessDeniedHandler)
+                .and().oauth2Login().loginPage("/login").successHandler(oauth2authSuccessHandler);
     }
 
     @Override
@@ -86,6 +92,6 @@ public class SecurityConfiguration4 extends WebSecurityConfigurerAdapter {
         encoder.setDefaultPasswordEncoderForMatches(new BCryptPasswordEncoder());
         return encoder;
     }
-}*/
+}
 
-public class SecurityConfiguration4{}
+//public class SecurityConfiguration6{}
